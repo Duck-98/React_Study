@@ -13,9 +13,7 @@
         
 
         class GuGuDan extends React.Component{
-            constructor(props){
-                super(props);
-                this.state ={
+                state ={
                   first: Math.ceio(Math.random() * 9),  
                   second : Math.ceio(Math.random() * 9),  
                   value : '',
@@ -24,41 +22,46 @@
                 onSubmit=(e)=>{
                             e.preventDefault();
                             if(parseInt(value) === this.state.first * this.state.second){
-                                this.setState({
-                                    result :'정답',
+                               this.setState((prevState)=> {
+                                return{
+                                    result :prevState.value+""+'정답',
                                     first: Math.ceio(Math.random() * 9),  
                                     second : Math.ceio(Math.random() * 9),  
                                     value : '',
-                                });
+                                };
+                               })
+                                
                             } else{
                                 this.setState({
                                     result:'땡',
                                     value : '',
                                 });
                             }
-                        }
-                onChange =(e) =>{
+                        };
+
+                onChange = (e) =>{
                     this.setState({value : e.target.value});
-                }        
-            }
+                };        
+            
 
                 
 
-
+            input;
+                
             render(){
                 return (
                     <React.Fragment>
                         <div>{this.state.first}곱하기 {this.state.second}는?</div>
                         <form onSubmit={this.onSubmit}>
-                            <input type ="number" value={this.state.value} onChange={(e)=> this.setState({value : e. target. value})}/> 
+                            <input ref={(c)=>{this.input=c;}} type ="number" value={this.state.value} onChange={(e)=> this.setState({value : e. target. value})}/> 
                             <button>입력</button>    
                         </form>
                         <div>{this.state.result}</div>    
                     </React.Fragment>
                 );
             }
-        }
         
+        }    
     </script>
     <script type="text/babel">
         ReactDOM.render(<GuGuDan/>, document.querySelector('#root'));
