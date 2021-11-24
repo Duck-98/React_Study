@@ -3,7 +3,7 @@ const {Component} = React;
 
 class WordGame extends Component {
     state={
-        word:'제로초',
+        word:'끝말잇기',
         value:'',
         result:'',
    };
